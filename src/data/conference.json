@@ -1,0 +1,39 @@
+{
+  "name": "YOURMUN",
+  "edition": "EDITION TBA",
+  "year": "20XX",
+  "tagline": "Dialogue. Diplomacy. Collaboration.",
+  "subheading": "A meeting place for dialogue, diplomacy, and new perspectives.",
+  "dates": "DATES TO BE ANNOUNCED",
+  "location": "VENUE TO BE ANNOUNCED",
+  "city": "Host City",
+  "country": "Host Country",
+  "coordinates": "To be announced",
+  "startDate": "",
+  "registrationDeadline": "",
+  "contactEmail": "secretariat@example.com",
+  "logo": "/images/conference-logo.svg",
+  "introVideo": "",
+  "mapQuery": "",
+  "timezone": "UTC",
+  "stats": [
+    {
+      "label": "COMMITTEES",
+      "value": "09",
+      "description": "General Assembly and specialized bodies",
+      "iconName": "Shield"
+    },
+    {
+      "label": "DELEGATES",
+      "value": "TBA",
+      "description": "Young voices from around the world",
+      "iconName": "Globe"
+    },
+    {
+      "label": "CONFERENCE DAYS",
+      "value": "TBA",
+      "description": "Debate, dialogue, and collaboration",
+      "iconName": "Flame"
+    }
+  ]
+}
