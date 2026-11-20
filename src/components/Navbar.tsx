@@ -1,8 +1,7 @@
 import { CONFERENCE_INFO } from '../data/conferenceData';
 import React, { useState, useEffect } from 'react';
 import { FlameLogo } from './FlameLogo';
-import { Menu, Music2, X } from 'lucide-react';
-import { SongRequestModal } from './SongRequestModal';
+import { Menu, X } from 'lucide-react';
 
 export type PageView = 'home' | 'committees' | 'apply';
 
@@ -14,12 +13,6 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [songModalOpen, setSongModalOpen] = useState(false);
-
-  const openSongRequest = () => {
-    setMobileMenuOpen(false);
-    setSongModalOpen(true);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -102,9 +95,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
                   );
                 })}
               </div>
-              <button type="button" className="nav-song-button" onClick={openSongRequest} aria-haspopup="dialog">
-                <Music2 size={16} /> Choose Your Song
-              </button>
             </nav>
 
             <button
@@ -145,17 +135,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
               );
             })}
           </div>
-
-          <button
-            onClick={openSongRequest}
-            className="btn-primary w-full text-center text-sm py-3.5 mt-4 song-menu-button"
-            aria-haspopup="dialog"
-          >
-            <Music2 size={18} /> CHOOSE YOUR SONG
-          </button>
         </div>
       </div>
-      {songModalOpen && <SongRequestModal onClose={() => setSongModalOpen(false)} />}
     </>
   );
 };

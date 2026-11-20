@@ -11,14 +11,42 @@ const calculateTimeLeft = (target: string) => {
 };
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate, targetDate = DEFAULT_TARGET_DATE }) => {
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(targetDate));
+  const homeRef = useRef<HTMLDivElement>(null);
   const lettersRef = useRef<HTMLElement>(null);
   useEffect(() => {
     setTimeLeft(calculateTimeLeft(targetDate));
     const interval = window.setInterval(() => setTimeLeft(calculateTimeLeft(targetDate)), 1000);
     return () => window.clearInterval(interval);
   }, [targetDate]);
+
+  useEffect(() => {
+    if (!homeRef.current || !('IntersectionObserver' in window)) return;
+
+    const elements = homeRef.current.querySelectorAll('[data-scroll-reveal]');
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove('is-awaiting-reveal');
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { rootMargin: '0px 0px -24px 0px' });
+
+    for (const element of elements) {
+      if (element.getBoundingClientRect().top >= window.innerHeight) {
+        element.classList.add('is-awaiting-reveal');
+        observer.observe(element);
+      }
+    }
+
+    return () => {
+      observer.disconnect();
+      for (const element of elements) element.classList.remove('is-awaiting-reveal');
+    };
+  }, []);
+
   return (
-    <div className="conference-home">
+    <div ref={homeRef} className="conference-home">
       <section className="home-hero" aria-labelledby="home-title">
         <p className="home-eyebrow">{CONFERENCE_INFO.city} · {CONFERENCE_INFO.dates}</p>
         <h1 id="home-title">{CONFERENCE_INFO.name}<span>{CONFERENCE_INFO.year}</span></h1>
@@ -44,12 +72,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, targetDate = DEF
       </section>
       <section ref={lettersRef} className="conference-letters" aria-labelledby="letters-title">
         <div className="letters-content">
-          <p className="home-eyebrow">FROM OUR CONFERENCE HOSTS</p>
-          <h2 id="letters-title">Letters of Welcome</h2>
+          <header data-scroll-reveal>
+            <p className="home-eyebrow">FROM OUR CONFERENCE HOSTS</p>
+            <h2 id="letters-title">Letters of Welcome</h2>
+          </header>
           <div className="conference-letter-grid">
-            {CONFERENCE_LETTERS.map((letter, index) => (
-              <article className="conference-letter" key={letter.name}>
-                <span className="letter-number">0{index + 1} / WELCOME LETTER</span>
+            {CONFERENCE_LETTERS.map((letter) => (
+              <article className="conference-letter" key={letter.name} data-scroll-reveal>
                 <h3>{letter.title}</h3>
                 {letter.paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}
                 <div className="letter-signature">{letter.name}<span>{letter.role}</span></div>
@@ -59,16 +88,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate, targetDate = DEF
         </div>
       </section>
       <section className="home-highlights" aria-label="Conference highlights">
-        <button className="home-highlight" onClick={() => onNavigate('committees')}><Landmark size={24} /><h3>{COMMITTEES_DATA.length} Committees</h3><p>Discover our General Assembly and specialized bodies.</p><ArrowRight size={18} /></button>
-        <button className="home-highlight" onClick={() => onNavigate('committees')}><Globe size={24} /><h3>Crisis Simulation</h3><p>Step into history and shape the course of international debate.</p><ArrowRight size={18} /></button>
-        <div className="home-highlight"><MapPin size={24} /><h3>{CONFERENCE_INFO.city}</h3><p>{CONFERENCE_INFO.dates}</p></div>
+        <button className="home-highlight" data-scroll-reveal onClick={() => onNavigate('committees')}><Landmark size={24} /><h3>{COMMITTEES_DATA.length} Committees</h3><p>Discover our General Assembly and specialized bodies.</p></button>
+        <button className="home-highlight" data-scroll-reveal onClick={() => onNavigate('committees')}><Globe size={24} /><h3>Crisis Simulation</h3><p>Step into history and shape the course of international debate.</p></button>
+        <div className="home-highlight" data-scroll-reveal><MapPin size={24} /><h3>{CONFERENCE_INFO.city}</h3><p>{CONFERENCE_INFO.dates}</p></div>
       </section>
       <section className="home-location" aria-labelledby="location-title">
-        <p className="home-eyebrow">MEET US IN {CONFERENCE_INFO.city}</p>
-        <h2 id="location-title">A meeting point for new perspectives.</h2>
-        <a className="home-map-link" href={CONFERENCE_INFO.mapQuery ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONFERENCE_INFO.mapQuery)}` : undefined} target="_blank" rel="noopener noreferrer" aria-label={CONFERENCE_INFO.mapQuery ? `Open ${CONFERENCE_INFO.city} in Google Maps (new tab)` : "Venue to be announced"}>
+        <header data-scroll-reveal>
+          <p className="home-eyebrow">MEET US IN {CONFERENCE_INFO.city}</p>
+          <h2 id="location-title">A meeting point for new perspectives.</h2>
+        </header>
+        <a className="home-map-link" data-scroll-reveal href={CONFERENCE_INFO.mapQuery ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONFERENCE_INFO.mapQuery)}` : undefined} target="_blank" rel="noopener noreferrer" aria-label={CONFERENCE_INFO.mapQuery ? `Open ${CONFERENCE_INFO.city} in Google Maps (new tab)` : "Venue to be announced"}>
           <div className="home-map-art" aria-hidden="true"><span className="map-pin-halo"><MapPin size={36} /></span></div>
-          <div className="home-map-caption"><div><span>CONFERENCE LOCATION</span><h3>{CONFERENCE_INFO.location}</h3><p>{CONFERENCE_INFO.city}, {CONFERENCE_INFO.country}</p></div><span className="map-open">{CONFERENCE_INFO.mapQuery ? "OPEN IN MAPS" : "LOCATION TBA"} <ExternalLink size={18} /></span></div>
+          <div className="home-map-caption">
+            <div><span>CONFERENCE LOCATION</span><h3>{CONFERENCE_INFO.location}</h3><p>{CONFERENCE_INFO.city}, {CONFERENCE_INFO.country}</p></div>
+            <span className="map-open">{CONFERENCE_INFO.mapQuery ? <>OPEN IN MAPS <ExternalLink size={16} /></> : 'LOCATION TBA'}</span>
+          </div>
         </a>
       </section>
       <footer className="home-footer">© {new Date().getFullYear()} {CONFERENCE_INFO.name} · MODEL UNITED NATIONS · ALL RIGHTS RESERVED</footer>

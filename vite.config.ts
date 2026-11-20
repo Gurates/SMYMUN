@@ -5,11 +5,12 @@ import conference from './src/data/conference.json';
 
 function conferenceMetadataPlugin(): Plugin {
   const escape = (value: string) => value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
+  const title = `${conference.name} ${conference.year} | ${conference.tagline.trim() || 'Model United Nations'}`;
   return {
     name: 'conference-metadata',
     transformIndexHtml(html) {
       return html
-        .replace(/<title>.*?<\/title>/, () => `<title>${escape(`${conference.name} ${conference.year} | ${conference.tagline}`)}</title>`)
+        .replace(/<title>.*?<\/title>/, () => `<title>${escape(title)}</title>`)
         .replace(/(<meta name="description" content=")[^"]*/, (_, prefix: string) => `${prefix}${escape(`${conference.name} — ${conference.subheading}`)}`)
         .replaceAll('/images/conference-logo.svg', () => escape(conference.logo));
     }

@@ -25,7 +25,7 @@ const applicationTypes = [
     title: 'Delegate',
     description: 'Represent a nation in committee',
     icon: User,
-    color: '#00b4d8'
+    color: '#40ddd2'
   },
   {
     id: 'delegation' as ApplicationType,
@@ -39,14 +39,14 @@ const applicationTypes = [
     title: 'Chairboard',
     description: 'Lead and moderate a committee',
     icon: Gavel,
-    color: '#C86868'
+    color: '#40ddd2'
   },
   {
     id: 'admin' as ApplicationType,
     title: 'Admin Staff',
     description: 'Help organise the conference',
     icon: Settings,
-    color: '#00b4d8'
+    color: '#40ddd2'
   },
   {
     id: 'press' as ApplicationType,

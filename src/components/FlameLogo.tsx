@@ -14,7 +14,7 @@ export const FlameLogo: React.FC<FlameLogoProps> = ({
   glow = true
 }) => {
   const sizeMap = {
-    sm: { width: 40, height: 40 },
+    sm: { width: 52, height: 52 },
     md: { width: 72, height: 72 },
     lg: { width: 144, height: 144 },
     hero: { width: 260, height: 260 }
@@ -36,8 +36,8 @@ export const FlameLogo: React.FC<FlameLogoProps> = ({
           style={{
             background:
               size === 'hero'
-                ? 'radial-gradient(circle at 50% 50%, rgba(74, 14, 20, 0.7) 0%, rgba(200, 104, 104, 0.3) 45%, transparent 70%)'
-                : 'radial-gradient(circle at 50% 50%, rgba(74, 14, 20, 0.5) 0%, rgba(200, 104, 104, 0.22) 45%, transparent 65%)',
+                ? 'radial-gradient(circle at 50% 50%, rgba(11, 100, 94, 0.7) 0%, rgba(64, 221, 210, 0.3) 45%, transparent 70%)'
+                : 'radial-gradient(circle at 50% 50%, rgba(11, 100, 94, 0.5) 0%, rgba(64, 221, 210, 0.22) 45%, transparent 65%)',
             transform: size === 'hero' ? 'scale(1.4)' : 'scale(1.2)',
             filter: size === 'hero' ? 'blur(25px)' : 'blur(12px)',
             zIndex: 0
@@ -56,8 +56,8 @@ export const FlameLogo: React.FC<FlameLogoProps> = ({
         style={{
           filter: glow
             ? size === 'hero'
-              ? 'drop-shadow(0 0 30px rgba(200, 104, 104, 0.55)) drop-shadow(0 0 60px rgba(74, 14, 20, 0.8))'
-              : 'drop-shadow(0 0 14px rgba(200, 104, 104, 0.45))'
+              ? 'drop-shadow(0 0 30px rgba(64, 221, 210, 0.55)) drop-shadow(0 0 60px rgba(11, 100, 94, 0.8))'
+              : 'drop-shadow(0 0 14px rgba(64, 221, 210, 0.45))'
             : 'none'
         }}
       />
