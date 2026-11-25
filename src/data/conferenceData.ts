@@ -12,7 +12,8 @@ export const SPEAKERS_DATA: Speaker[] = [{
   image: '/images/conference-logo.svg', chamber: 'Opening Ceremony'
 }];
 export const SCHEDULE_DATA: DaySchedule[] = [1, 2, 3].map(day => ({
-  day, title: `DAY 0${day}`, theme: 'DIPLOMACY & DIALOGUE', date: 'Date to be announced',
+  day, title: `DAY 0${day}`, theme: 'DIPLOMACY & DIALOGUE', date: new Date(Date.parse(conference.startDate) + (day - 1) * 86400000)
+    .toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: conference.timezone }),
   sessions: [{ time: 'TBA', title: day === 1 ? 'Opening Ceremony' : day === 3 ? 'Closing Ceremony' : 'Committee Sessions', location: 'To be announced', type: 'plenary', description: 'The detailed programme will be announced soon.' }]
 }));
 export const VENUE_INFO = {

@@ -1,25 +1,25 @@
 {
   "name": "SMYMUN",
   "edition": "EDITION TBA",
-  "year": "2026",
+  "year": "2027",
   "tagline": "",
   "subheading": "A meeting place for dialogue, diplomacy, and new perspectives.",
-  "dates": "DATES TO BE ANNOUNCED",
-  "location": "VENUE TO BE ANNOUNCED",
-  "city": "Host City",
-  "country": "Host Country",
+  "dates": "4–6 February 2027",
+  "location": "Konak",
+  "city": "İzmir",
+  "country": "Türkiye",
   "coordinates": "To be announced",
-  "startDate": "",
+  "startDate": "2027-02-04T00:00:00+03:00",
   "registrationDeadline": "",
   "contactEmail": "secretariat@example.com",
   "logo": "/images/smymun-logo.png",
   "introVideo": "",
-  "mapQuery": "",
-  "timezone": "UTC",
+  "mapQuery": "Konak, İzmir, Türkiye",
+  "timezone": "Europe/Istanbul",
   "stats": [
     {
       "label": "COMMITTEES",
-      "value": "09",
+      "value": "08",
       "description": "General Assembly and specialized bodies",
       "iconName": "Shield"
     },
@@ -31,7 +31,7 @@
     },
     {
       "label": "CONFERENCE DAYS",
-      "value": "TBA",
+      "value": "03",
       "description": "Debate, dialogue, and collaboration",
       "iconName": "Flame"
     }
